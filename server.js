@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
     cookieSession({
         name: "auth-session",
-        keys: ["COOKIE_SECRET"], // should use as secret environment variable
+        keys: [process.env.COOKIE_SECRET], // should use as secret environment variable
         httpOnly: true,
     })
 );
