@@ -1,5 +1,6 @@
 
 const Sequelize = require("sequelize");
+console.log(process.env.MYSQLHOST)
 const sequelize = new Sequelize(
   process.env.MYSQLDB,
   process.env.MYSQLUSER,
