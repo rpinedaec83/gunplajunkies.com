@@ -1,4 +1,3 @@
-
 const Sequelize = require("sequelize");
 console.log(process.env.MYSQLHOST)
 const sequelize = new Sequelize(
@@ -24,6 +23,10 @@ db.sequelize = sequelize;
 
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
+db.empresa = require("../models/empresa.model.js")(sequelize, Sequelize);
+
+db.empresa.hasMany(db.user, {foreignKey: 'empresaId'});
+db.user.belongsTo(db.empresa, {foreignKey: 'empresaId'});
 
 db.role.belongsToMany(db.user, {
   through: "user_roles"

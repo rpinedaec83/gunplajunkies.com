@@ -1,4 +1,5 @@
 const db = require("../models");
+require("dotenv").config();
 
 const User = db.user;
 const Role = db.role;
@@ -9,12 +10,15 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res) => {
-  // Save User to Database
+  /*  #swagger.tags = ['User']
+            #swagger.description = 'Endpoint to get the specific user.' */
+  console.log(req.body)
   try {
     const user = await User.create({
       username: req.body.username,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
+      empresaId : req.body.empresa
     });
 
     if (req.body.roles) {
@@ -61,7 +65,10 @@ exports.signin = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ id: user.id },
+    const token = jwt.sign({ 
+      id: user.id, 
+      empresa: req.session.empresa 
+    },
         process.env.jwtSecret,
                            {
                             algorithm: 'HS256',
@@ -82,6 +89,7 @@ exports.signin = async (req, res) => {
       username: user.username,
       email: user.email,
       roles: authorities,
+      empresa:req.session.empresa 
     });
   } catch (error) {
     return res.status(500).send({ message: error.message });

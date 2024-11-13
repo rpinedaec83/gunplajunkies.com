@@ -5,7 +5,7 @@
     "description": "BAse de datos de Modelos a Escala",
     "version": "1.0.0"
   },
-  "host": "localhost:undefined",
+  "host": "localhost:8080",
   "basePath": "/",
   "schemes": [
     "http"
@@ -77,7 +77,10 @@
     },
     "/api/auth/signup": {
       "post": {
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "description": "Endpoint to get the specific user.",
         "parameters": [
           {
             "name": "body",
@@ -92,6 +95,9 @@
                   "example": "any"
                 },
                 "roles": {
+                  "example": "any"
+                },
+                "empresa": {
                   "example": "any"
                 },
                 "password": {
@@ -124,6 +130,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "empresa": {
+                  "example": "any"
+                },
                 "username": {
                   "example": "any"
                 },
@@ -137,6 +146,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
